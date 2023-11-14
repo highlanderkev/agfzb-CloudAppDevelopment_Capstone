@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Dealership About Us</title>
+    {% include "partials/bootstrap.html" %}
+    {% include "partials/inline-style.html" %}
+</head>
+<body>
+    <main class="container">
+        {% include "partials/nav.html" %}
+        <div class="row m-2">
+            <div class="col">
+                <h1>Contact Us</h1>
+            </div>
+            <div class="col">
+                <div class="d-flex flex-row">
+                    <address class="d-flex flex-column">
+                        <span><a href="mailto:test@example.com">test@example.com</a></span>
+                        <span><a href="tel:+14155550132">+1 (415) 555‑0132</a></span>
+                        <span>National Car Dealership</span>
+                        <span>1234 National Way</span>
+                        <span>Anytown, USA</span>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% include "partials/footer.html" %}
+</body>
+</html>
