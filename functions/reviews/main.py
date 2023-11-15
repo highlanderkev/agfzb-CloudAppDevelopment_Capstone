@@ -2,6 +2,7 @@ from cloudant.client import Cloudant
 from cloudant.query import Query
 from flask import Flask, jsonify, request
 import atexit
+import requests
 
 #Add your Cloudant service credentials here
 cloudant_username = 'b7402ac4-cbd2-4519-87c7-642ac2b6b556-bluemix'
@@ -56,6 +57,24 @@ def post_review():
     # Save the review data as a new document in the Cloudant database
     db.create_document(review_data)
     return jsonify({"message": "Review posted successfully"}), 201
+
+@app.route("/api", methods=["GET", "POST"])
+def main(param_dict):
+    """Main Function
+    Args:
+        param_dict (Dict): input paramater
+    Returns:
+        _type_: _description_ TODO
+    """
+    try:
+        print(f"Databases: {client.all_dbs()}")
+    except CloudantException as cloudant_exception:
+        print("unable to connect")
+        return jsonify({"error": cloudant_exception}), 500
+    except (requests.exceptions.RequestException, ConnectionResetError) as err:
+        print("connection error")
+        return jsonify({"error": err}), 500
+    return jsonify({"dbs": client.all_dbs()}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

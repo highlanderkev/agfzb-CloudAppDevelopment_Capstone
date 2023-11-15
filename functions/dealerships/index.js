@@ -2,13 +2,15 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const Cloudant = require('@cloudant/cloudant');
+const { CloudantV1 } = require('@ibm-cloud/cloudant');
+const { IamAuthenticator } = require('ibm-cloud-sdk-core');
 
 // Initialize Cloudant connection with IAM authentication
 async function dbCloudantConnect() {
     try {
         const cloudant = Cloudant({
-            plugins: { iamauth: { iamApiKey: 'eXdat4Y8oJC_D_OBI7o_tEdAep_q8ArhgVG1aiBm4LGS' } }, // Replace with your IAM API key
-            url: 'https://b7402ac4-cbd2-4519-87c7-642ac2b6b556-bluemix.cloudantnosqldb.appdomain.cloud', // Replace with your Cloudant URL
+            plugins: { iamauth: { iamApiKey: 'eXdat4Y8oJC_D_OBI7o_tEdAep_q8ArhgVG1aiBm4LGS' } },
+            url: 'https://b7402ac4-cbd2-4519-87c7-642ac2b6b556-bluemix.cloudantnosqldb.appdomain.cloud',
         });
 
         const db = cloudant.use('dealerships');
@@ -56,6 +58,20 @@ app.get('/dealerships/get', (req, res) => {
             res.json(dealerships);
         }
     });
+});
+
+app.get("/status", async (req, res) => {
+      const authenticator = new IamAuthenticator({ apikey: 'eXdat4Y8oJC_D_OBI7o_tEdAep_q8ArhgVG1aiBm4LGS' })
+      const cloudant = CloudantV1.newInstance({
+          authenticator: authenticator
+      });
+      cloudant.setServiceUrl('https://b7402ac4-cbd2-4519-87c7-642ac2b6b556-bluemix.cloudantnosqldb.appdomain.cloud');
+      try {
+        let dbList = await cloudant.getAllDbs();
+        return { "dbs": dbList.result };
+      } catch (error) {
+          return { error: error.description };
+      }
 });
 
 app.listen(port, () => {
