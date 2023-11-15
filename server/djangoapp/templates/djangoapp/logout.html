@@ -1,0 +1,13 @@
+{% extends 'djangoapp/base.html' %}
+{% block content %}
+<main class="container">
+    <div class="row m-2">
+        <div class="col">
+            <h1>Successfully Logged out!</h1>
+        </div>
+        <div class="col">
+            <a class="btn btn-link" href="{% url 'djangoapp:login' %}">Log Back In</a>
+        </div>
+    </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% include "partials/bootstrap.html" %}
+        {% include "partials/inline-style.html" %}
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+        {% include "partials/nav.html" %}
+        {% block content %}
+        {% endblock %}
+        {% include "partials/footer.html" %}
+    </body>
+</html>

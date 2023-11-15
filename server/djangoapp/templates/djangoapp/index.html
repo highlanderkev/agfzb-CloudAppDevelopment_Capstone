@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Dealership Review</title>
-    {% include "partials/bootstrap.html" %}
-    {% include "partials/inline-style.html" %}
-</head>
-<body>
-    <div class="container">   
-        {% include "partials/nav.html" %}
-    <!--Add a dealer table here -->
+{% extends 'djangoapp/base.html' %}
+{% block content %}
+<main class="container">
+    <div class="row m-2">
+        <h1>Home</h1>
+        <!--Add a dealer table here -->
     </div>
-    {% include "partials/footer.html" %}
-</body>
-</html>
+</main>
+{% endblock content %}
