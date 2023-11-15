@@ -2,8 +2,41 @@
 {% block content %}
 <main class="container">
     <div class="row m-2">
-        <h1>Home</h1>
-        <!--Add a dealer table here -->
+        <h1>Dealerships</h1>
+        {% if dealerships %}
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Short Name</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Zip</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dealership in dealerships %}
+                        <tr>
+                            <th scope="row"><a href="{% url 'djangoapp:dealer_details' dealership.id %}">{{ dealership.id }}</a></th>
+                            <td>{{ dealership.short_name }}</td>
+                            <td>{{ dealership.full_name }}</td>
+                            <td>{{ dealership.address }}</td>
+                            <td>{{ dealership.city }}</td>
+                            <td>{{ dealership.st }}</td>
+                            <td>{{ dealership.zip }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+        <div class="container">
+            Loading...
+        </div>
+        {% endif %}
     </div>
 </main>
 {% endblock content %}
