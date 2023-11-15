@@ -14,7 +14,7 @@ import json
 logger = logging.getLogger(__name__)
 
 
-# Create your views here.
+DEALERSHIP_URL = 'https://dealerships-sn-labs-kevinwestrop.labs-prod-openshift-san-a45631dc5778dc6371c67d206ba9ae5c-0000.us-east.containers.appdomain.cloud/dealerships/get'
 
 
 # Create an `about` view to render a static about page
@@ -84,7 +84,7 @@ def get_dealerships(request):
     """
     context = {}
     if request.method == "GET":
-        url = "https://kevinwestrop-3000.theiadocker-2-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        url = DEALERSHIP_URL
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
@@ -100,7 +100,7 @@ def get_dealer_details(request, dealer_id):
     """
     context = {}
     if request.method == "GET":
-        dealership_url = "https://kevinwestrop-3000.theiadocker-2-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        dealership_url = DEALERSHIP_URL
         dealership = get_dealer_by_id_from_cf(url, dealer_id)
         if dealership:
             context["dealership"] = dealership
