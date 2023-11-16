@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 DEALERSHIP_URL = 'https://dealerships-sn-labs-kevinwestrop.labs-prod-openshift-san-a45631dc5778dc6371c67d206ba9ae5c-0000.us-east.containers.appdomain.cloud/dealerships/get'
-
+REVIEW_BASE_URL = 'https://reviews-sn-labs-kevinwestrop.labs-prod-openshift-san-a45631dc5778dc6371c67d206ba9ae5c-0000.us-east.containers.appdomain.cloud/api/'
 
 # Create an `about` view to render a static about page
 def about(request):
@@ -103,10 +103,10 @@ def get_dealer_details(request, dealer_id):
         dealer = get_dealer_by_id_from_cf(DEALERSHIP_URL, dealer_id)
         if dealer:
             context["dealer"] = dealer
-        #reviews_url = "https://kevinwestrop-5000.theiadocker-2-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
-        #reviews = get_dealer_reviews_from_cf(reviews_url, dealer_id)
-        #if reviews:
-        #    context['reviews'] = reviews
+        url = REVIEW_BASE_URL + "get_reviews"
+        reviews = get_dealer_reviews_from_cf(url, dealer_id)
+        if reviews:
+            context['reviews'] = reviews
         return render(request, 'djangoapp/dealer_details.html', context)
 
 def add_review(request, dealer_id):
@@ -115,14 +115,14 @@ def add_review(request, dealer_id):
     """
     context = {}
     if request.method == "GET":
-        dealer = get_dealer_from_cf_by_id(DEALERSHIP_URL, dealer_id)
+        dealer = get_dealer_by_id_from_cf(DEALERSHIP_URL, dealer_id)
         cars = CarModel.objects.filter(dealer_id=dealer_id)
         context["cars"] = cars
         context["dealer"] = dealer
         return render(request, 'djangoapp/add_review.html', context)
 
     if request.method == "POST":
-        url = "https://kevinwestrop-5000.theiadocker-2-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"      
+        url = REVIEW_BASE_URL + "post_review"      
         if 'purchasecheck' in request.POST:
             was_purchased = True
         else:

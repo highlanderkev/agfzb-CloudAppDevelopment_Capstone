@@ -1,14 +1,17 @@
 {% extends 'djangoapp/base.html' %}
 {% block content %}
-<form action="{% url 'djangoapp:login' %}" method="post">
+{% if dealer %}
+<form action = "{% url 'djangoapp:dealer_review' dealer.id %}" method="post">
     {% csrf_token %}
     <div class="container">
-      <h1>Add Review</h1>
+      <h1>Add Review for: {{ dealer.short_name }}</h1>
       <div class="form-group">
-        <label for="review"><b>User Name: </b></label>
-        <input id="username" class="form-control type="text" placeholder="Enter User Name: " name="username" required>
-        <label for="psw"><b>Password: </b></label>
-        <input id="psw" type="password" class="form-control" placeholder="Enter Password: " name="psw" required>
+        <H5>Enter your review:</H5><br>
+        <textarea class="form-control" id="content" name="content" rows="2" required></textarea><br>
+        <div class = "form-check mt-5">
+            <input class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck">
+            <label class="form-check-label">Has purchased car from {{dealer.full_name}} ?<label> <span style="color: gray; font-weight: 300; padding-left: 5px;">(select purchased car information below if checked)</span>
+        </div>
       </div>
       {% if message %}
         <div class="alert alert-warning">
@@ -18,4 +21,5 @@
       <button class="btn btn-primary" type="submit">Submit</button>
     </div>
 </form>
+{% endif %}
 {% endblock content %}

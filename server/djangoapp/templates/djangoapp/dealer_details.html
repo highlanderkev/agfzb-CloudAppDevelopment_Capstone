@@ -10,6 +10,7 @@
                     {{dealer.address}}
                     {{dealer.city}}
                     {{dealer.st}}
+                    <a href="{% url 'djangoapp:dealer_review' dealer.id %}">Add Review</a>
                 </div>
             </div>
         {% else %}
