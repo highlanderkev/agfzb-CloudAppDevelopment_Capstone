@@ -13,7 +13,6 @@ import json
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-
 DEALERSHIP_URL = 'https://dealerships-sn-labs-kevinwestrop.labs-prod-openshift-san-a45631dc5778dc6371c67d206ba9ae5c-0000.us-east.containers.appdomain.cloud/dealerships/get'
 REVIEW_BASE_URL = 'https://reviews-sn-labs-kevinwestrop.labs-prod-openshift-san-a45631dc5778dc6371c67d206ba9ae5c-0000.us-east.containers.appdomain.cloud/api/'
 

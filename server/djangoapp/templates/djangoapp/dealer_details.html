@@ -3,16 +3,47 @@
 <main class="container">
     <div class="row m-2">
         {% if dealer %}
-        <h1>Dealer Details: {{dealer.short_name}}<h1>
+        <h1>Dealer Details: {{dealer.full_name}}</h1>
             <div class="row">
                 <div class="col">
-                    {{dealer.full_name}}
-                    {{dealer.address}}
-                    {{dealer.city}}
-                    {{dealer.st}}
-                    <a href="{% url 'djangoapp:dealer_review' dealer.id %}">Add Review</a>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Zip</th>
+                                <th scope="col">Add Review</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ dealer.full_name }}</td>
+                                <td>{{ dealer.address }}</td>
+                                <td>{{ dealer.city }}</td>
+                                <td>{{ dealer.st }}</td>
+                                <td>{{ dealer.zip }}</td>
+                                <td><a href="{% url 'djangoapp:dealer_review' dealer.id %}">Add Review</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            {% if reviews %}
+            <div class="container">
+                <h1>Reviews for <strong>{{dealer.full_name}}</strong></h1>
+                {% for review in reviews %}
+                <div class="row">
+                    {{review}}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="container">
+                <h1>No reviews yet.</h1>
+            </div>
+            {% endif %}
         {% else %}
             <div class="row">
                 Loading...

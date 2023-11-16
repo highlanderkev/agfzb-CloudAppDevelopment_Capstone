@@ -5,24 +5,22 @@
         <h1>Dealerships</h1>
         {% if dealerships %}
             <div class="container">
-                <table class="table">
+                <table class="table" id="table" data-filter-control="true">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Short Name</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">City</th>
-                            <th scope="col">State</th>
-                            <th scope="col">Zip</th>
+                            <th scope="col" data-field="id">ID</th>
+                            <th scope="col" data-field="name">Dealer Name</th>
+                            <th scope="col" data-field="address">Address</th>
+                            <th scope="col" data-field="city">City</th>
+                            <th scope="col" data-field="state" data-filter-control="select">State</th>
+                            <th scope="col" data-field="zip">Zip</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for dealership in dealerships %}
                         <tr>
-                            <th scope="row"><a href="{% url 'djangoapp:dealer_details' dealership.id %}">{{ dealership.id }}</a></th>
-                            <td>{{ dealership.short_name }}</td>
-                            <td>{{ dealership.full_name }}</td>
+                            <th scope="row">{{ dealership.id }}</th>
+                            <td><a href="{% url 'djangoapp:dealer_details' dealership.id %}">{{ dealership.full_name }}</a></td>
                             <td>{{ dealership.address }}</td>
                             <td>{{ dealership.city }}</td>
                             <td>{{ dealership.st }}</td>
@@ -39,4 +37,9 @@
         {% endif %}
     </div>
 </main>
+<script>
+$(function() {
+    $('#table').bootstrapTable();
+});
+</script>
 {% endblock content %}
