@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
-</head>
-    <body>
-    <!--Add review form here -->
-    </body>
-</html>
+{% extends 'djangoapp/base.html' %}
+{% block content %}
+<form action="{% url 'djangoapp:login' %}" method="post">
+    {% csrf_token %}
+    <div class="container">
+      <h1>Add Review</h1>
+      <div class="form-group">
+        <label for="review"><b>User Name: </b></label>
+        <input id="username" class="form-control type="text" placeholder="Enter User Name: " name="username" required>
+        <label for="psw"><b>Password: </b></label>
+        <input id="psw" type="password" class="form-control" placeholder="Enter Password: " name="psw" required>
+      </div>
+      {% if message %}
+        <div class="alert alert-warning">
+          {{ message }}
+        </div>
+      {% endif %}
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+{% endblock content %}
