@@ -77,4 +77,6 @@ def main(param_dict):
     return jsonify({"dbs": client.all_dbs()}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = os.environ.get('FLASK_PORT') or 8080
+    port = int(port)
+    app.run(debug=True, host="0.0.0.0", port=port)
