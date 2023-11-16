@@ -99,4 +99,16 @@ class DealerReview:
         self.id = id
 
     def __str__(self):
-        f"Dealer Review: {self.review}"
+        return f"Dealer Review: {self.review}"
+
+class SentimentAnalysis:
+    """
+    Plain Python class to hold sentiment analysis
+    """
+    def __init__(self, text, sentiment_score, sentiment_label):
+        self.text = text
+        self.sentiment_score = sentiment_score
+        self.sentiment_label = sentiment_label
+        
+    def __str__(self):
+        return f"Text: '{self.text}' | Sentiment: {self.sentiment_label}"

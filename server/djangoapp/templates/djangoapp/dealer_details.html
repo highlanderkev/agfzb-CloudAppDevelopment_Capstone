@@ -3,41 +3,60 @@
 <main class="container">
     <div class="row m-2">
         {% if dealer %}
-        <h1>Dealer Details: {{dealer.full_name}}</h1>
-            <div class="row">
-                <div class="col">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">City</th>
-                                <th scope="col">State</th>
-                                <th scope="col">Zip</th>
-                                <th scope="col">Add Review</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ dealer.full_name }}</td>
-                                <td>{{ dealer.address }}</td>
-                                <td>{{ dealer.city }}</td>
-                                <td>{{ dealer.st }}</td>
-                                <td>{{ dealer.zip }}</td>
-                                <td><a href="{% url 'djangoapp:dealer_review' dealer.id %}">Add Review</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="container">
+                <h1>Dealer Details: {{dealer.full_name}}</h1>
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">State</th>
+                                    <th scope="col">Zip</th>
+                                    <th scope="col">Add Review</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ dealer.full_name }}</td>
+                                    <td>{{ dealer.address }}</td>
+                                    <td>{{ dealer.city }}</td>
+                                    <td>{{ dealer.st }}</td>
+                                    <td>{{ dealer.zip }}</td>
+                                    <td><a href="{% url 'djangoapp:dealer_review' dealer.id %}">Add Review</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             {% if reviews %}
             <div class="container">
                 <h1>Reviews for <strong>{{dealer.full_name}}</strong></h1>
-                {% for review in reviews %}
                 <div class="row">
-                    {{review}}
+                    <div class="card-columns">
+                        {% for review in reviews %}
+                        <div class="card">
+                            {% if review.sentiment.sentiment_label == 'positive' %}
+                            <img class="card-img-top card-img-top-review" src="{{MEDIA_URL}}/emoji/positive.png" alt="positive">
+                            {% elif review.sentiment.sentiment_label == 'negative' %}
+                            <img class="card-img-top card-img-top-review" src="{{MEDIA_URL}}/emoji/negative.png" alt="negative">
+                            {% else %}
+                            <img class="card-img-top card-img-top-review" src="{{MEDIA_URL}}/emoji/neutral.png" alt="neutral">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{review.car_make}}, {{review.car_model}}
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{review.car_year}}</h6>
+                                <p class="card-text">{{review.review}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                {% endfor %}
             </div>
             {% else %}
             <div class="container">
