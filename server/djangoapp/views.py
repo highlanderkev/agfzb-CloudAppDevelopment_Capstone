@@ -100,13 +100,13 @@ def get_dealer_details(request, dealer_id):
     """
     context = {}
     if request.method == "GET":
-        dealership = get_dealer_by_id_from_cf(DEALERSHIP_URL, dealer_id)
-        if dealership:
-            context["dealership"] = dealership
-        reviews_url = "https://kevinwestrop-5000.theiadocker-2-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
-        reviews = get_dealer_reviews_from_cf(reviews_url, dealer_id)
-        if reviews:
-            context['reviews'] = reviews
+        dealer = get_dealer_by_id_from_cf(DEALERSHIP_URL, dealer_id)
+        if dealer:
+            context["dealer"] = dealer
+        #reviews_url = "https://kevinwestrop-5000.theiadocker-2-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
+        #reviews = get_dealer_reviews_from_cf(reviews_url, dealer_id)
+        #if reviews:
+        #    context['reviews'] = reviews
         return render(request, 'djangoapp/dealer_details.html', context)
 
 def add_review(request, dealer_id):

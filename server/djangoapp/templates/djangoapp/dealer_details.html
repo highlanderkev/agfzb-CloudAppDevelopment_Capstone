@@ -2,13 +2,18 @@
 {% block content %}
 <main class="container">
     <div class="row m-2">
-        <h1>Dealer Details<h1>
-        {% if dealership %}
-            <div class="container">
-                {{dealership}}
+        {% if dealer %}
+        <h1>Dealer Details: {{dealer.short_name}}<h1>
+            <div class="row">
+                <div class="col">
+                    {{dealer.full_name}}
+                    {{dealer.address}}
+                    {{dealer.city}}
+                    {{dealer.st}}
+                </div>
             </div>
         {% else %}
-            <div class="container">
+            <div class="row">
                 Loading...
             </div>
         {% endif %}

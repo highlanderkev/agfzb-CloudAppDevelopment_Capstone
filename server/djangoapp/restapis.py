@@ -46,12 +46,9 @@ def get_dealers_from_cf(url, **kwargs):
     - Parse JSON results into a CarDealer object list
     """
     results = []
-    # Call get_request with a URL parameter
     json_result = get_request(url)
     if json_result:
-        # For each dealer object
         for dealer in json_result:
-            # Create a CarDealer object with values in `doc` object
             dealer_obj = CarDealer(address=dealer["address"], city=dealer["city"], full_name=dealer["full_name"],
                                    id=dealer["id"], lat=dealer["lat"], long=dealer["long"],
                                    short_name=dealer["short_name"],
@@ -65,16 +62,18 @@ def get_dealer_by_id_from_cf(url, dealerId):
     - Call get_request() with specified arguments
     - Parse JSON results into a DealerView object list
     """
-    results = []
-    json_result = get_request(url, dealerId=dealerId)
+    result = {}
+    json_result = get_request(url, id=dealerId)
+    # print(json_result)
     if json_result:
         for dealer in json_result:
             dealer_obj = CarDealer(address=dealer["address"], city=dealer["city"], full_name=dealer["full_name"],
                                    id=dealer["id"], lat=dealer["lat"], long=dealer["long"],
                                    short_name=dealer["short_name"],
                                    st=dealer["st"], zip=dealer["zip"])
-            results.append(dealer_obj)
-    return results
+            print(dealer_obj)
+            result = dealer_obj
+    return result
 
 
 def get_dealer_reviews_from_cf(url, dealerId):
